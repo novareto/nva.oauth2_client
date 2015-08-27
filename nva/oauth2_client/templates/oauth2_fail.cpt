@@ -1,0 +1,7 @@
+<div>
+  <h1>Your access has been denied</h1>
+  <dl class="alert alert-warning" tal:condition="view.error">
+    <dt tal:content="view.error['error']" />
+    <dd tal:content="view.error['error_description']" />
+  </dl>
+</div>

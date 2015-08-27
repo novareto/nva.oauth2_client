@@ -1,0 +1,29 @@
+import grok
+import megrok.pagetemplate as pt
+
+
+from dolmen.forms.base import ApplicationForm
+from skin import ITBSkin
+from urllib import urlencode
+from uvc.layout.forms.components import GroupForm, SubForm, Wizard
+from uvc.layout.layout import IUVCSkin
+from z3c.table.batch import BatchProvider
+from z3c.table.interfaces import ITable
+from zope.interface import Interface
+from zope.traversing.browser import absoluteURL
+from grokcore.chameleon.components import ChameleonPageTemplateFile
+
+
+grok.templatedir('templates')
+
+
+class RequestToken(grok.View):
+    grok.context(Interface)
+
+    client_id = "novareto"
+    client_secret = "test"
+    token_endpoint = "http://karl.novareto.de:8085/auth.passwd/token"
+
+    template = ChameleonPageTemplateFile('templates/formtemplate.cpt')
+
+    def update(self):

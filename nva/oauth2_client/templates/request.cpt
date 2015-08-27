@@ -1,0 +1,35 @@
+<div>
+  <h1>Request API access token</h1>
+  <div tal:condition="view.token is None">
+    <dl class="alert alert-warning" tal:condition="view.error">
+      <dt tal:content="view.error['error']" />
+      <dd tal:content="view.error['error_description']" />
+    </dl>
+    <p class="alert alert-danger"
+       tal:condition="view.code == 401">
+      Given credentials are invalid. Please contact your provider.
+    </p>    
+    <form method="POST" name="confirmation_form"
+	  tal:attributes="action view.action">
+      <div class="form-group">
+	  <label for="username">Username</label>
+	  <input name="username" type="text" class="form-control"
+		 id="username" placeholder="Username" />
+      </div>
+      <div class="form-group">
+	<label for="password">Password</label>
+	<input name="password" type="password" class="form-control"
+	       id="password" placeholder="Password" />
+      </div>
+      <div>
+	<input type="submit" class="btn btn-default" value="submit" />
+      </div>
+    </form>
+  </div>
+  <div tal:condition="view.token is not None">
+    <h2>The access token has been successfully delivered</h2>
+    <p>
+      <strong tal:content="'Token : ' + view.token['access_token']" />
+    </p>
+  </div>
+</div>

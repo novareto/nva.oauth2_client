@@ -1,0 +1,12 @@
+README.txt
+setup.py
+nva/__init__.py
+nva.oauth2_client.egg-info/PKG-INFO
+nva.oauth2_client.egg-info/SOURCES.txt
+nva.oauth2_client.egg-info/dependency_links.txt
+nva.oauth2_client.egg-info/namespace_packages.txt
+nva.oauth2_client.egg-info/not-zip-safe
+nva.oauth2_client.egg-info/requires.txt
+nva.oauth2_client.egg-info/top_level.txt
+nva/oauth2_client/__init__.py
+nva/oauth2_client/views.py
