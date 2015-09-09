@@ -1,4 +1,0 @@
-grok
-setuptools
-uvc.api
-python-oauth2

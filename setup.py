@@ -26,6 +26,7 @@ setup(name='nva.oauth2_client',
           'setuptools',
           'uvc.api',
           'python-oauth2',
+          'zope.app.appsetup',
           # -*- Extra requirements: -*-
       ],
       entry_points={

@@ -50,9 +50,13 @@ class RequestToken(Page):
 
     client_id = "novareto"
     client_secret = "test"
-    token_endpoint = "http://karl.novareto.de:8085/auth.passwd/token"
 
     template = ChameleonPageTemplateFile('templates/request.cpt')
+
+    @property
+    def token_endpoint(self):
+        config = getProductConfiguration('oauth2')
+        return config.get('token_endpoint', False)
 
     def login(self):
         params = {

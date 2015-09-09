@@ -5,6 +5,7 @@ import json
 import urllib2
 from urllib2 import HTTPError, URLError
 from oauth2.compatibility import urlencode
+from zope.app.appsetup.product import getProductConfiguration
 from zope.pluggableauth.interfaces import (
     IPrincipalInfo, IAuthenticatorPlugin, ICredentialsPlugin)
 
@@ -42,10 +43,13 @@ class AccessTokenHolder(object):
     def __repr__(self):
         return '<AccessTokenHolder "%s">' % self.id
 
-    def __init__(self, token, client):
-        self.id = unicode(token)
-        self.title = u'Access token %r for client %r' % (token, client)
-        self.description = u'OAuth2 access token provided for %r' % client
+    def __init__(self, token, infos):
+        userid = infos['userid']
+        client = infos['client']
+        self.id = unicode(userid)
+        self.title = u'Access token %r for %r (%r)' % (token, userid, client)
+        self.description = u'OAuth2 access token provided for %r (%r)' % (
+            userid, client)
 
 
 class AuthenticateBearer(grok.GlobalUtility):
@@ -53,12 +57,13 @@ class AuthenticateBearer(grok.GlobalUtility):
     grok.implements(IAuthenticatorPlugin)
 
     def __init__(self):
-        self.token_endpoint = "http://karl.novareto.de:8085/verify"
-    
+        config = getProductConfiguration('oauth2')
+        self.verify_token = config.get('verify_token', False)
+
     def verify(self, token):
         params = {"access_token": token}
         try:
-            response = urllib2.urlopen(self.token_endpoint, urlencode(params))
+            response = urllib2.urlopen(self.verify_token, urlencode(params))
             token = json.load(response)
             return token
         except HTTPError as he:
@@ -80,7 +85,7 @@ class AuthenticateBearer(grok.GlobalUtility):
 
         infos = self.verify(access_token)
         if infos is not None:
-            return AccessTokenHolder(access_token, infos['client'])
+            return AccessTokenHolder(access_token, infos)
         return None
 
     def principalInfo(self, id):
