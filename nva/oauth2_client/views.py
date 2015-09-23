@@ -6,11 +6,11 @@ import urllib2
 import uvcsite
 
 from urllib2 import HTTPError, URLError
-from uvc.api import Page
-from grokcore.chameleon.components import ChameleonPageTemplateFile
-from zope.app.homefolder.interfaces import IHomeFolder
 from oauth2.compatibility import urlencode
 from uvcsite.interfaces import IMyHomeFolder
+from zope.app.homefolder.interfaces import IHomeFolder
+from zope.app.appsetup.product import getProductConfiguration
+from grokcore.chameleon.components import ChameleonPageTemplateFile
 
 grok.templatedir('templates')
 

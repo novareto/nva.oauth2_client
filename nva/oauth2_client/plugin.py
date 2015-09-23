@@ -13,7 +13,7 @@ from zope.pluggableauth.interfaces import (
 class BearerTokenAuthCredentialsPlugin(grok.GlobalUtility):
     grok.name('creds.bearer')
     grok.implements(ICredentialsPlugin)
-    
+
     def extractCredentials(self, request):
         if not grok.IRESTLayer.providedBy(request):
             return None
